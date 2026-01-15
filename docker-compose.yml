@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: llm-council-backend
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    volumes:
+      - ./data/conversations:/app/data/conversations
+    networks:
+      - llm-council-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: llm-council-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - llm-council-network
+    restart: unless-stopped
+
+networks:
+  llm-council-network:
+    driver: bridge
+
+volumes:
+  conversations-data:
