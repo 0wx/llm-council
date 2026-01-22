@@ -70,13 +70,6 @@ export default function Sidebar({
           )}
         </div>
       </ScrollArea>
-
-      {/* Footer */}
-      <div className="p-3 border-t border-border">
-        <p className="text-xs text-center text-muted-foreground">
-          Powered by OpenRouter
-        </p>
-      </div>
     </div>
   );
 }
