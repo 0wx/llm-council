@@ -15,7 +15,7 @@ export default function Sidebar({
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <h1 className="font-bold text-xl bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-          LLM Council
+          ABSOLUTE MDRT
         </h1>
         <ThemeToggle />
       </div>
