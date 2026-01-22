@@ -1,22 +1,43 @@
 import ReactMarkdown from 'react-markdown';
-import './Stage3.css';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Crown } from 'lucide-react';
 
 export default function Stage3({ finalResponse }) {
   if (!finalResponse) {
     return null;
   }
 
+  const getModelShortName = (model) => {
+    const parts = model.split('/');
+    return parts[parts.length - 1] || model;
+  };
+
   return (
-    <div className="stage stage3">
-      <h3 className="stage-title">Stage 3: Final Council Answer</h3>
-      <div className="final-response">
-        <div className="chairman-label">
-          Chairman: {finalResponse.model.split('/')[1] || finalResponse.model}
+    <Card className="border-green-500/30 bg-gradient-to-br from-green-500/5 to-emerald-500/5">
+      <CardHeader className="pb-3">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-md bg-green-500/10">
+            <Crown className="h-4 w-4 text-green-500" />
+          </div>
+          <CardTitle className="text-base">Stage 3: Final Council Answer</CardTitle>
         </div>
-        <div className="final-text markdown-content">
-          <ReactMarkdown>{finalResponse.response}</ReactMarkdown>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="border-green-500/30 text-green-600 dark:text-green-400">
+              Chairman
+            </Badge>
+            <code className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+              {getModelShortName(finalResponse.model)}
+            </code>
+          </div>
+          <div className="markdown-content bg-background rounded-lg p-4 border">
+            <ReactMarkdown>{finalResponse.response}</ReactMarkdown>
+          </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

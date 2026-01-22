@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
+import { Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Sidebar from './components/Sidebar';
 import ChatInterface from './components/ChatInterface';
 import { api } from './api';
-import './App.css';
 
 function App() {
   const [conversations, setConversations] = useState([]);
   const [currentConversationId, setCurrentConversationId] = useState(null);
   const [currentConversation, setCurrentConversation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Load conversations on mount
   useEffect(() => {
@@ -48,6 +51,7 @@ function App() {
         ...conversations,
       ]);
       setCurrentConversationId(newConv.id);
+      setSidebarOpen(false);
     } catch (error) {
       console.error('Failed to create conversation:', error);
     }
@@ -55,6 +59,7 @@ function App() {
 
   const handleSelectConversation = (id) => {
     setCurrentConversationId(id);
+    setSidebarOpen(false);
   };
 
   const handleSendMessage = async (content) => {
@@ -182,18 +187,50 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <Sidebar
-        conversations={conversations}
-        currentConversationId={currentConversationId}
-        onSelectConversation={handleSelectConversation}
-        onNewConversation={handleNewConversation}
-      />
-      <ChatInterface
-        conversation={currentConversation}
-        onSendMessage={handleSendMessage}
-        isLoading={isLoading}
-      />
+    <div className="flex h-full bg-background">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex md:w-72 lg:w-80 border-r border-border">
+        <Sidebar
+          conversations={conversations}
+          currentConversationId={currentConversationId}
+          onSelectConversation={handleSelectConversation}
+          onNewConversation={handleNewConversation}
+        />
+      </aside>
+
+      {/* Mobile Header with Sheet */}
+      <div className="flex flex-col flex-1 h-full">
+        <header className="md:hidden flex items-center gap-3 p-3 border-b border-border bg-card">
+          <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-80 p-0">
+              <SheetHeader className="sr-only">
+                <SheetTitle>Navigation</SheetTitle>
+              </SheetHeader>
+              <Sidebar
+                conversations={conversations}
+                currentConversationId={currentConversationId}
+                onSelectConversation={handleSelectConversation}
+                onNewConversation={handleNewConversation}
+              />
+            </SheetContent>
+          </Sheet>
+          <h1 className="font-semibold text-lg">LLM Council</h1>
+        </header>
+
+        {/* Main Chat Area */}
+        <main className="flex-1 min-h-0">
+          <ChatInterface
+            conversation={currentConversation}
+            onSendMessage={handleSendMessage}
+            isLoading={isLoading}
+          />
+        </main>
+      </div>
     </div>
   );
 }
