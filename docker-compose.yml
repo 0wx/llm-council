@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     container_name: llm-council-backend
+    env_file:
+      - .env
     environment:
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
     volumes:
