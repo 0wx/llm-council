@@ -219,7 +219,7 @@ function App() {
               />
             </SheetContent>
           </Sheet>
-          <h1 className="font-semibold text-lg">LLM Council</h1>
+          <h1 className="font-semibold text-lg">ABSOLUTE MDRT</h1>
         </header>
 
         {/* Main Chat Area */}

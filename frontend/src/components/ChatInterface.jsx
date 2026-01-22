@@ -48,7 +48,7 @@ export default function ChatInterface({
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center mb-6">
           <Sparkles className="w-10 h-10 text-primary" />
         </div>
-        <h2 className="text-2xl font-bold mb-2">Welcome to LLM Council</h2>
+        <h2 className="text-2xl font-bold mb-2">Welcome to ABSOLUTE MDRT</h2>
         <p className="text-muted-foreground max-w-md">
           Create a new conversation to consult the council of AI models for diverse perspectives on your questions.
         </p>
@@ -67,7 +67,7 @@ export default function ChatInterface({
               </div>
               <h2 className="text-xl font-semibold mb-2">Start a Conversation</h2>
               <p className="text-muted-foreground max-w-md text-sm">
-                Ask a question to consult the LLM Council. Multiple AI models will provide their perspectives.
+                Ask a question to consult the ABSOLUTE MDRT. Multiple AI models will provide their perspectives.
               </p>
             </div>
           ) : (
@@ -96,7 +96,7 @@ export default function ChatInterface({
                     </div>
                     <div className="flex-1 space-y-4">
                       <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                        LLM Council
+                        ABSOLUTE MDRT
                       </div>
 
                       {/* Stage 1 */}
